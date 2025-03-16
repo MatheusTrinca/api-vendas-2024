@@ -1,11 +1,11 @@
 {
   "cSpell.words": ["tseslint", "vendas"],
 
-  "javascript.inlayHints.parameterTypes.enabled": false,
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "typescript.inlayHints.parameterTypes.enabled": false,
-  "javascript.inlayHints.enumMemberValues.enabled": true,
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+  // "javascript.inlayHints.parameterTypes.enabled": false,
+  // "typescript.inlayHints.parameterNames.enabled": "all",
+  // "typescript.inlayHints.parameterTypes.enabled": false,
+  // "javascript.inlayHints.enumMemberValues.enabled": true,
+  // "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
 
   "editor.lineHeight": 23
 }
