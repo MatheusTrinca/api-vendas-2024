@@ -145,4 +145,127 @@ describe('InMemoryRepository unit tests', () => {
       expect(result).toHaveLength(0)
     })
   })
+
+  describe('applySort', () => {
+    it('should not sort items', async () => {
+      const items = [
+        {
+          id: randomUUID(),
+          name: 'test',
+          price: 10,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'TEST',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'fake',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+      ]
+      const spySortMethod = jest.spyOn(items, 'sort' as any)
+
+      let result = await sut['applySort'](items, null, null)
+      expect(spySortMethod).not.toHaveBeenCalled()
+      expect(result).toStrictEqual(items)
+
+      result = await sut['applySort'](items, 'id', 'asc')
+      expect(spySortMethod).not.toHaveBeenCalled()
+      expect(result).toStrictEqual(items)
+    })
+
+    it('should sort items', async () => {
+      const items = [
+        {
+          id: randomUUID(),
+          name: 'c',
+          price: 10,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'a',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'b',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+      ]
+
+      let result = await sut['applySort'](items, 'name', 'asc')
+      expect(result).toStrictEqual([items[1], items[2], items[0]])
+
+      result = await sut['applySort'](items, 'name', 'desc')
+      expect(result).toStrictEqual([items[0], items[2], items[1]])
+    })
+  })
+
+  describe('applyPaginate', () => {
+    it('should paginate items', async () => {
+      const items = [
+        {
+          id: randomUUID(),
+          name: 'a',
+          price: 10,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'b',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'c',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'd',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'e',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+      ]
+
+      let result = await sut['applyPaginate'](items, 1, 2)
+      expect(result).toStrictEqual([items[0], items[1]])
+
+      result = await sut['applyPaginate'](items, 2, 2)
+      expect(result).toStrictEqual([items[2], items[3]])
+
+      result = await sut['applyPaginate'](items, 3, 2)
+      expect(result).toStrictEqual([items[4]])
+
+      result = await sut['applyPaginate'](items, 2, 3)
+      expect(result).toStrictEqual([items[3], items[4]])
+    })
+  })
 })
