@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["tseslint", "vendas"],
+  "cSpell.words": ["tseslint", "vendas"]
 
   // "javascript.inlayHints.parameterTypes.enabled": false,
   // "typescript.inlayHints.parameterNames.enabled": "all",
@@ -7,5 +7,5 @@
   // "javascript.inlayHints.enumMemberValues.enabled": true,
   // "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
 
-  "editor.lineHeight": 23
+  // "editor.lineHeight": 23
 }
