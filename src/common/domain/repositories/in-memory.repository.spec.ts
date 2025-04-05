@@ -410,6 +410,99 @@ describe('InMemoryRepository unit tests', () => {
       })
     })
 
-    it('should search using filter, sort and paginate', async () => {})
+    it('should search using filter, sort and paginate', async () => {
+      const items = [
+        {
+          id: randomUUID(),
+          name: 'TEST',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'a',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'd',
+          price: 20,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'test',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+        {
+          id: randomUUID(),
+          name: 'TeSt',
+          price: 30,
+          created_at,
+          updated_at,
+        },
+      ]
+      sut.items = items
+
+      let result = await sut.search({
+        page: 1,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'asc',
+        filter: 'TEST',
+      })
+
+      expect(result).toStrictEqual({
+        items: [items[0], items[4]],
+        total: 3,
+        current_page: 1,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'asc',
+        filter: 'TEST',
+      })
+
+      result = await sut.search({
+        page: 2,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'asc',
+        filter: 'TEST',
+      })
+
+      expect(result).toStrictEqual({
+        items: [items[3]],
+        total: 3,
+        current_page: 2,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'asc',
+        filter: 'TEST',
+      })
+
+      result = await sut.search({
+        page: 1,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'desc',
+        filter: 'test',
+      })
+
+      expect(result).toStrictEqual({
+        items: [items[3], items[4]],
+        total: 3,
+        current_page: 1,
+        per_page: 2,
+        sort: 'name',
+        sort_dir: 'desc',
+        filter: 'test',
+      })
+    })
   })
 })
